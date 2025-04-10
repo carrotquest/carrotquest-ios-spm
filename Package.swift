@@ -4,7 +4,7 @@ import PackageDescription
 let package = Package(
     name: "CarrotSDK",
     platforms: [
-        .iOS(.v12)
+        .iOS(.v13)
     ],
     products: [
         .library(
@@ -15,8 +15,8 @@ let package = Package(
     targets: [
         .binaryTarget(
             name: "CarrotSDK",
-            url: "https://github.com/carrotquest/carrotquest-ios-spm/releases/download/2.12.11/CarrotSDK.xcframework.zip",
-            checksum: "9ca863f0d36f27bcecb534101a64f389f318b10d091fd8bcee291773a682d9fe"
+            url: "https://github.com/carrotquest/carrotquest-ios-spm/releases/download/2.13.0/CarrotSDK.xcframework.zip",
+            checksum: "7bf6b04185af35d1e6057016ca876accbecc85e12272ca112ff47d2b26f3188b"
         ),
     ]
 )
