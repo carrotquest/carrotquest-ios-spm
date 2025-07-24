@@ -1,6 +1,6 @@
 ## Carrot quest для iOS
 
-![Version](https://img.shields.io/static/v1?label=Version&message=2.13.2&color=brightgreen)[![SwiftPM compatible](https://img.shields.io/badge/SwiftPM-compatible-brightgreen.svg)](https://swift.org/package-manager/)
+![Version](https://img.shields.io/static/v1?label=Version&message=2.13.3&color=brightgreen)[![SwiftPM compatible](https://img.shields.io/badge/SwiftPM-compatible-brightgreen.svg)](https://swift.org/package-manager/)
 
 ## Содержание
 
@@ -25,6 +25,7 @@
   - [Уведомления](#notif_objc)
 - [Важная информация о Push уведомлениях](#important_push)
 - [Дублирование уведомлений и статистика доставленных пушей](#notif_extension)
+- [Метод отписки от пушей](#notifications_unsubscribe)
 - [Локализация](#localization)
 - [Xcode 15](#xcode15)
 - [Использование ссылок в пушах](#Push+link) 
@@ -202,17 +203,30 @@ Carrot.shared.openChat()
 ### Получение количества непрочтенных диалогов и сообщений
 Для отслеживания количества непрочтенных диалогов:
 ```swift
-Carrot.shared.getUnreadConversationsCount({ count in
+Carrot.shared.getUnreadConversationsCount { count in
     print("Carrotquest SDK dialogs count: \(count)")
-})
+}
 ```
 
 и для количества непрочтенных сообщений:
+
 ```swift
-Carrot.shared.getUnreadMessagesCount({ count in
+Carrot.shared.getUnreadMessagesCount { count in
     print("Carrotquest SDK messages count: \(count)")
-})
+}
 ```
+
+### Отслеживание отображения UI SDK
+
+Вы можете отследить, отображается ли сейчас какой-либо UI элемент библиотеки на экране (чат, список диалогов, попап). Колбэк вызывается каждый раз при показе или скрытии этих элементов:
+
+```swift
+Carrot.shared.onVisibilityUIChanged { isVisible in
+    print("Carrotquest SDK - isVisible: \(isVisible)")
+}
+```
+
+Если isVisible == true, значит один из экранов SDK (чат, попап и т. д.) отображается. Если false — ничего не показывается.
 
 <a name="custom_url_opener_swift"></a>
 
@@ -511,6 +525,21 @@ Carrot *carrot = [Carrot shared];
 }];
 ```
 
+### Отслеживание отображения UI SDK
+
+Вы можете отследить, отображается ли сейчас какой-либо UI элемент библиотеки на экране (чат, список диалогов, попап). Колбэк вызывается каждый раз при показе или скрытии этих элементов:
+
+```objective-c
+Carrot *carrot = [Carrot shared];
+[
+  carrot
+  onVisibilityUIChanged:^(BOOL isVisible){
+		NSLog(@"Carrotquest SDK — isVisible: %@", isVisible ? @"YES" : @"NO");
+}];
+```
+
+Если isVisible == true, значит один из экранов SDK (чат, попап и т. д.) отображается. Если false — ничего не показывается.
+
 <a name="custom_url_opener_objc"></a>
 
 ## Открытие ссылок вручную
@@ -688,6 +717,28 @@ class NotificationService: CarrotNotificationServiceExtension {
 ```swift
 let domain = "Identifier зарегистрированный в Apple Developer Portal ранее"
 notificationService.show(notification, appGroudDomain: domain, completionHandler: completionHandler)
+```
+
+<a name="notifications_unsubscribe"></a>
+
+## Метод отписки от пушей
+
+Существуют методы отписать конкретного пользователя от пушей и от всех рассылок в принципе. 
+
+Метод для отписки от пушей:
+
+```swift
+import CarrotSDK
+
+CarrotNotificationService.shared.pushNotificationsUnsubscribe()
+```
+
+Метод для отписки от всех рассылок:
+
+```swift
+import CarrotSDK
+
+CarrotNotificationService.shared.pushCampaignsUnsubscribe()
 ```
 
 <a name="localization"></a>
