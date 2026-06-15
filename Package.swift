@@ -15,8 +15,8 @@ let package = Package(
     targets: [
         .binaryTarget(
             name: "CarrotSDK",
-            url: "https://github.com/carrotquest/carrotquest-ios-spm/releases/download/3.1.6/CarrotSDK.xcframework.zip",
-            checksum: "fc8dd89e8502d25b19ff6e069d355b55a48798289941af66e8012804f7763e44"
+            url: "https://github.com/carrotquest/carrotquest-ios-spm/releases/download/3.2.0/CarrotSDK.xcframework.zip",
+            checksum: "c01bf7e554dc59a96b13ac51bb9668767a145115647ab205b8f3b3c2143f4976"
         ),
     ]
 )
